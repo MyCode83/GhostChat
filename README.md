@@ -9,7 +9,7 @@ GhostChat es una utilidad TUI P2P descentralizada para comunicaciones efímeras.
 
 El sistema está diseñado para mitigar ataques MITM (Man-in-the-Middle) y escaneos de red pasivos/activos.
 
-* **Networking Core:** Construido sobre `libp2p` con descubrimiento mDNS para NAT Traversal automático.
+* **Networking Core:** Construido sobre `libp2p` con ruteo Kademlia DHT y AutoNAT/Relay para atravesar firewalls y conectar a nivel global a través de internet.
 * **Criptografía:** Túneles cifrados mediante **AES-256-GCM** (Autenticación y Cifrado Simétrico).
 * **Generación de Claves:** Entropía criptográfica pura (`crypto/rand`) para la derivación de tokens de 256 bits.
 * **Handshake Challenge-Response:** Descarte de paquetes en capa de aplicación para clientes no autenticados (Drop silencioso).
@@ -24,28 +24,3 @@ Descarga el binario precompilado para tu arquitectura. No requiere dependencias 
   ```bash
   chmod +x ghostchat-<os>
   ./ghostchat-<os>
-  ```
-
-## 3. Guía de Operación (TUI)
-
-La interfaz basada en Bubble Tea se opera íntegramente por teclado para máxima velocidad.
-
-* **Host (Crear Sala):** Genera un token criptográfico efímero. Compártelo a través de un canal OOB (Out-of-Band) seguro.
-* **Client (Unirse):** Introduce el token para iniciar la resolución mDNS y el handshake P2P.
-* **Comandos de Chat:**
-  * Texto plano: Escribe el payload y pulsa `Enter`.
-  * Transferencia: `/file <ruta_absoluta>` (Ej: `/file /tmp/data.pdf`). Los chunks de 64KB se envían cifrados y se reensamblan en `./downloads`.
-* **Kill Switch:** Pulsa `Esc` para purgar la memoria RAM y destruir los descriptores de red instantáneamente.
-
-## 4. Compilación y Ofuscación (Build)
-
-Para entornos de producción, el binario debe compilarse sin la tabla de símbolos (Stripped) y aislando las rutas locales para dificultar al máximo la ingeniería inversa.
-
-```bash
-# Producción Windows (Target por defecto)
-go build -ldflags="-s -w" -trimpath -o bin/ghostchat.exe ./cmd/ghost
-
-# Cross-Compilation (Linux/macOS)
-GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -trimpath -o bin/ghostchat-linux ./cmd/ghost
-GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -trimpath -o bin/ghostchat-mac ./cmd/ghost
-```
