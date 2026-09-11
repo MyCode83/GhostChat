@@ -24,3 +24,17 @@ Descarga el binario precompilado para tu arquitectura. No requiere dependencias 
   ```bash
   chmod +x ghostchat-<os>
   ./ghostchat-<os>
+3. Guía de Operación (TUI)
+La interfaz basada en Bubble Tea se opera íntegramente por teclado para máxima velocidad.
+
+Host (Crear Sala): Genera un token criptográfico efímero. Compártelo a través de un canal OOB (Out-of-Band) seguro.
+
+Client (Unirse): Introduce el token para buscar el punto de encuentro en la red DHT global e iniciar el handshake P2P blindado.
+
+Comandos de Chat:
+
+Texto plano: Escribe el payload y pulsa Enter.
+
+Transferencia: /file <ruta_absoluta> (Ej: /file /tmp/data.pdf). Los chunks de 64KB se envían cifrados y se reensamblan en ./downloads.
+
+Kill Switch: Pulsa Esc para purgar la memoria RAM y destruir los descriptores de red instantáneamente.
