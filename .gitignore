@@ -1,0 +1,16 @@
+# Binarios
+*.exe
+*.dll
+*.out
+
+# Go
+/vendor/
+
+# Tests / cobertura
+*.test
+*.prof
+coverage.*
+
+# Otros
+.DS_Store
+Thumbs.db
