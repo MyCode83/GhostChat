@@ -14,3 +14,7 @@ coverage.*
 # Otros
 .DS_Store
 Thumbs.db
+
+ghostchat.exe
+ghostchat-linux
+ghostchat-mac-arm
